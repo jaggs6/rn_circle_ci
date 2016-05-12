@@ -1,0 +1,9 @@
+{
+  "extends": "google",
+  "plugins": [
+      "react"
+  ],
+  "rules": {
+      "no-unused-vars": ["off"]
+  }
+}

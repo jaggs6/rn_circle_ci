@@ -1,0 +1,27 @@
+{
+  "name": "rn_circle_ci",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest",
+    "lint": "./node_modules/.bin/eslint *js"
+  },
+  "dependencies": {
+    "react": "^0.14.8",
+    "react-native": "^0.25.1"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.8.0",
+    "babel-eslint": "^6.0.4",
+    "babel-preset-react-native": "^1.7.0",
+    "eslint": "^2.9.0",
+    "eslint-config-google": "^0.5.0",
+    "eslint-plugin-react": "^5.1.1",
+    "jest-cli": "^12.0.2",
+    "pre-commit": "^1.1.3"
+  }
+}
