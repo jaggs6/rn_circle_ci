@@ -5,15 +5,15 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "rm -rf ./node_modules/jest-cli/.haste_cache && jest",
-    "lint": "./node_modules/.bin/eslint *js"
-  },
-  "dependencies": {
-    "react": "^0.14.8",
-    "react-native": "^0.25.1"
+    "lint": "eslint *js"
   },
   "pre-commit": [
     "lint"
   ],
+  "dependencies": {
+    "react": "^0.14.8",
+    "react-native": "^0.25.1"
+  },
   "devDependencies": {
     "babel-core": "^6.8.0",
     "babel-eslint": "^6.0.4",
@@ -23,5 +23,24 @@
     "eslint-plugin-react": "^5.1.1",
     "jest-cli": "^12.0.2",
     "pre-commit": "^1.1.3"
-  }
+  },
+  "description": "Circle Ci Client app made using React Native",
+  "main": "index.android.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaggs6/rn_circle_ci.git"
+  },
+  "keywords": [
+    "rn",
+    "react-native",
+    "circle",
+    "ci",
+    "circleci"
+  ],
+  "author": "Jagdeep Nagpal",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jaggs6/rn_circle_ci/issues"
+  },
+  "homepage": "https://github.com/jaggs6/rn_circle_ci#readme"
 }
