@@ -9,11 +9,16 @@ import React, {Component} from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  ListView,
   Text,
-  RefreshControl,
   View
 } from 'react-native';
+import RefreshableList from 'RefreshableList';
+import ScrollabeList from 'react-native-scrollable-list';
+
+const data = [{
+  name: 'Bakerloo',
+  lineStatuses: [{statusSeverityDescription: 'ok'}]
+}];
 
 const styles = StyleSheet.create({
   container: {
@@ -33,32 +38,31 @@ const styles = StyleSheet.create({
   }
 });
 
-let ds;
+const StatusRow = rowData => (
+    <View style={styles.row}>
+      <Text style={styles.rowItem}>
+        {rowData.name}</Text>
+      <Text style={styles.rowItem}>
+        {rowData.lineStatuses[0].statusSeverityDescription}</Text>
+    </View>
+  );
 
 class MainScreen extends Component {
 
   constructor(props) {
     super(props);
-    ds = new ListView.DataSource({rowHasChanged: (r1, r2) => (r1 !== r2)});
-    const data = [{
-      name: 'Bakerloo',
-      lineStatuses: [{statusSeverityDescription: 'ok'}]
-    }];
-    // console.warn('constructor', data);
+
     this.state = {
-      dataSource: ds.cloneWithRows(data),
-      refreshing: false
+      data: data
     };
   }
 
   _fetchData() {
-    fetch('https://api.tfl.gov.uk/Line/Mode/tube/Status') // eslint-disable-line no-undef
+    return fetch('https://api.tfl.gov.uk/Line/Mode/tube/Status') // eslint-disable-line no-undef
       .then(response => response.json())
       .then(responseData => {
-        // console.warn('fetch',responseData);
         this.setState({
-          dataSource: ds.cloneWithRows(responseData),
-          refreshing: false
+          data: responseData
         });
       });
   }
@@ -67,38 +71,15 @@ class MainScreen extends Component {
     this._fetchData();
   }
 
-  _renderRow(rowData) {
-    // console.warn('renderRow', JSON.stringify(rowData));
-    return (
-      <View style={styles.row}>
-        <Text style={styles.rowItem}>{rowData.name}</Text>
-        <Text style={styles.rowItem}>{rowData.lineStatuses[0]
-          .statusSeverityDescription}</Text>
-      </View>
-    );
-  }
-
-  _onRefresh() {
-    this.setState({refreshing: true});
-    this._fetchData();
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this._onRefresh.bind(this)}
-            />
-          }
-        />
+        <RefreshableList
+          data={this.state.data}
+          row={StatusRow}
+          onRefresh={this._fetchData.bind(this)} />
       </View>
     );
-    // console.warn('render', JSON.stringify(this.state.dataSource));
   }
 }
 
