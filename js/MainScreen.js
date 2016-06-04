@@ -12,8 +12,7 @@ import {
   Text,
   View
 } from 'react-native';
-import RefreshableList from 'RefreshableList';
-import ScrollabeList from 'react-native-scrollable-list';
+import ScrollableList from 'ScrollableList';
 
 const data = [{
   name: 'Bakerloo',
@@ -68,13 +67,13 @@ class MainScreen extends Component {
   }
 
   componentDidMount() {
-    this._fetchData();
+    // this._fetchData();
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <RefreshableList
+        <ScrollableList
           data={this.state.data}
           row={StatusRow}
           onRefresh={this._fetchData.bind(this)} />

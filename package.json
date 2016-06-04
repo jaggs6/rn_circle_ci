@@ -23,7 +23,7 @@
     "eslint-plugin-react": "^5.1.1",
     "jest-cli": "^12.0.2",
     "pre-commit": "^1.1.3",
-    "react-native-scrollable-list": "^1.2.0"
+    "react-native-scrollable-list": "^1.4.1"
   },
   "description": "Circle Ci Client app made using React Native",
   "main": "index.android.js",

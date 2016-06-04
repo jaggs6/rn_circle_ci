@@ -1,13 +1,13 @@
 
 /**
-* @providesModule RefreshableList
+* @providesModule ScrollableList
 * @flow
 */
 
 import React, {Component} from 'react';
 import {ListView, RefreshControl} from 'react-native';
 
-class RefreshableList extends Component {
+class ScrollableList extends Component {
   constructor(props) {
     super(props);
 
@@ -38,22 +38,28 @@ class RefreshableList extends Component {
     });
   }
 
+  refreshControl() {
+    return (<RefreshControl refreshing={this.state.refreshing} onRefresh={this._onRefresh.bind(this)}/>);
+  }
+
   render() {
     const Row = this.row;
     return (
       <ListView
         {...this.otherProps}
         dataSource={this.state.dataSource}
-        renderRow={data => <Row {...data} />}
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}
+        renderRow={(data, sectionID, rowID, highlightRow) => (
+          <Row
+            {...data}
+            sectionID={sectionID}
+            rowID={rowID}
+            highlightRow={highlightRow}
           />
-        }
+        )}
+        refreshControl={this.onRefresh ? this.refreshControl() : null}
       />
     );
   }
 }
 
-export default RefreshableList;
+export default ScrollableList;
