@@ -19,6 +19,11 @@ const data = [{
   lineStatuses: [{statusSeverityDescription: 'ok'}]
 }];
 
+const modifiedData = [{
+  name: 'Bakerloo2',
+  lineStatuses: [{statusSeverityDescription: 'fine'}]
+}];
+
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
@@ -64,6 +69,10 @@ class MainScreen extends Component {
           data: responseData
         });
       });
+  }
+
+  _modifiedData() {
+    this.setState({data: modifiedData});
   }
 
   componentDidMount() {

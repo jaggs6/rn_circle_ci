@@ -33,9 +33,14 @@ class ScrollableList extends Component {
 
   _onRefresh() {
     this.setState({refreshing: true});
-    this.onRefresh().then(() => {
+
+    if (typeof this.onRefresh() === 'object' &&
+     typeof this.onRefresh().then === 'function') {
+      this.onRefresh().then(this.setState({refreshing: false}));
+    } else {
+      this.onRefresh();
       this.setState({refreshing: false});
-    });
+    }
   }
 
   refreshControl() {
